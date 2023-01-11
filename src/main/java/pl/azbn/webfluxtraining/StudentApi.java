@@ -23,12 +23,12 @@ public class StudentApi {
         );
     }
 
-    @GetMapping(value = "/getstudents", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+    @GetMapping(value = "/students", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
     public Flux<Student> getStudent() {
         return studentFlux.delayElements(Duration.ofSeconds(2));
     }
 
-    @PostMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+    @PostMapping(value = "/students", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
     public Flux<Student> addStudent(@RequestBody Student student) {
         studentFlux = studentFlux.mergeWith(Mono.just(student));
         return studentFlux;
